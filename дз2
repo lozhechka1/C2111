@@ -1,0 +1,59 @@
+class Employee:
+    def __init__(self, name, position, salary):
+        self.name = name
+        self.position = position
+        self.salary = salary
+
+    def __str__(self):
+        return f"{self.name}, {self.position}, Зарплата: {self.salary} грн"
+
+class Department:
+    def __init__(self, name):
+        self.name = name
+        self.employees = []
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+        print(f"Співробітника {employee.name} додано до відділу {self.name}.")
+
+    def remove_employee(self, employee_name):
+        for employee in self.employees:
+            if employee.name == employee_name:
+                self.employees.remove(employee)
+                print(f"Співробітника {employee_name} видалено з відділу {self.name}.")
+                return
+        print(f"Співробітника {employee_name} не знайдено у відділі {self.name}.")
+
+    def total_salary(self):
+        return sum(emp.salary for emp in self.employees)
+
+    def list_employees(self):
+        print(f"Список співробітників у відділі {self.name}:")
+        for emp in self.employees:
+            print(f" - {emp}")
+
+# Приклад використання
+if __name__ == "__main__":
+    # Створення співробітників
+    emp1 = Employee("Олена Іванова", "Інженер", 25000)
+    emp2 = Employee("Петро Коваль", "Менеджер", 30000)
+    emp3 = Employee("Наталія Сидоренко", "Аналітик", 28000)
+
+    # Створення відділу
+    dev_department = Department("Розробка")
+
+    # Додавання співробітників
+    dev_department.add_employee(emp1)
+    dev_department.add_employee(emp2)
+    dev_department.add_employee(emp3)
+
+    # Виведення списку
+    dev_department.list_employees()
+
+    # Загальна зарплата
+    print(f"Загальна заробітна плата у відділі: {dev_department.total_salary()} грн")
+
+    # Видалення співробітника
+    dev_department.remove_employee("Петро Коваль")
+    dev_department.list_employees()
+    print(f"Загальна заробітна плата після видалення: {dev_department.total_salary()} грн")
